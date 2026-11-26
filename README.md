@@ -1,2 +1,43 @@
-# aegis-trust-community
-Global open innovation community for AEGIS TRUST
+# AEGIS TRUST — Global Contributor Community
+
+🌍 **Developers, researchers, designers, security professionals, students and independent innovators worldwide are welcome.**
+
+AEGIS TRUST is an initiative exploring digital trust infrastructure: provenance, evidence integrity, identity protection, product verification, media integrity and responsible AI.
+
+## Mission
+Build practical, trustworthy technology that benefits people globally—with evidence before claims, privacy by design, safety, accessibility and accountable review.
+
+## Collaboration areas
+- Software engineering, APIs and developer experience
+- Privacy, security and threat modelling
+- Digital evidence and provenance research
+- AI/ML evaluation and responsible systems
+- Product identity and digital passport concepts
+- Accessibility, localization and low-bandwidth/mobile UX
+- Documentation, testing and synthetic datasets
+
+## Start here
+1. Read [CONTRIBUTING.md](CONTRIBUTING.md).
+2. Review the [public task board](TASKS.md).
+3. Read [SECURITY.md](SECURITY.md) before reporting a vulnerability.
+4. Discuss an issue before beginning substantial work.
+5. Submit work through a pull request; all contributions are reviewed.
+
+## Contributor principles
+- Clear scope and honest status; no fabricated results.
+- Attribution for accepted contributions.
+- No guaranteed salary, employment, equity, prizes or revenue share.
+- Any paid/commercial work, compensation, IP assignment/license, confidentiality or special access requires a separate written agreement **before** work begins.
+- Do not submit secrets, personal data, customer evidence, private code or patent-sensitive material.
+- Public collaboration does not grant access to private repositories, systems, credentials or internal evidence.
+
+## Project boundaries
+This repository is the **public community entry point**. It is not the private core platform repository. No confidential technical information is intentionally published here.
+
+## Current status
+Community hub initialized. Tasks are proposals until explicitly marked **OPEN**. All submissions require maintainer review; a merged contribution is not automatically production-ready or validated.
+
+## Participate
+Start with a GitHub Issue using a clear title and concise proposal. Please communicate in writing through GitHub.
+
+*Evidence before claims. Trust through verification.*
