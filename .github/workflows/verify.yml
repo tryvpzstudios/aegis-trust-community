@@ -22,3 +22,4 @@ jobs:
           node tests/verify_evidence_schema_graph.mjs
           node tests/verify_graph_engine.mjs
           node tests/verify_engine_module.mjs
+          node tests/verify_evidence_report.mjs
