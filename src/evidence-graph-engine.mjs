@@ -4,6 +4,12 @@
  * NOT a truth, authenticity, legal, safety, or confidence engine.
  */
 const ALLOWED_RELATIONS=new Set(["supports","contradicts","derived_from","same_subject","context_for","integrity_checked","observed_from","assesses"]);
+const RELATION_TYPE_RULES={
+  supports:["evidence","claim"],
+  contradicts:["evidence","claim"],
+  integrity_checked:["evidence","evidence"],
+  observed_from:["observation","evidence"]
+};
 
 export function validateGraph(graph) {
   const errors=[];
@@ -16,12 +22,12 @@ export function validateGraph(graph) {
   for(const [i,n] of graph.nodes.entries()){
     if(!n||typeof n!=="object"||Array.isArray(n)||!n.id||!n.type||!n.label) errors.push(`node[${i}] requires id, type, label`);
     else if(ids.has(n.id)) errors.push(`duplicate node id: ${n.id}`);
-    else ids.add(n.id);
+    else {ids.add(n.id);nodeTypes.set(n.id,n.type);}
   }
   for(const [i,e] of graph.edges.entries()){
     if(!e||typeof e!=="object"||Array.isArray(e)||!ids.has(e.from)||!ids.has(e.to)) errors.push(`edge[${i}] has unknown endpoint`);
     if(e?.from===e?.to) errors.push(`edge[${i}] self-loop is not allowed`);
-    if(!ALLOWED_RELATIONS.has(e?.relation)) errors.push(`edge[${i}] unsupported relation`);
+    if(!ALLOWED_RELATIONS.has(e?.relation)) errors.push(`edge[${i}] unsupported relation`);\n    const expected=RELATION_TYPE_RULES[e?.relation];\n    if(expected&&ids.has(e?.from)&&ids.has(e?.to)&&(nodeTypes.get(e.from)!==expected[0]||nodeTypes.get(e.to)!==expected[1])) errors.push(`edge[${i}] ${e.relation} must connect ${expected[0]} to ${expected[1]}`);
   }
   return errors;
 }
