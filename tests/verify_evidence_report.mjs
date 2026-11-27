@@ -1,0 +1,14 @@
+import assert from "node:assert/strict";
+import {readFile} from "node:fs/promises";
+import {buildEvidenceReport,renderEvidenceReportHTML} from "../src/evidence-report.mjs";
+const g1=JSON.parse(await readFile("tests/synthetic-evidence-graph-001.json","utf8"));
+const g2=JSON.parse(await readFile("tests/synthetic-evidence-graph-002-conflict.json","utf8"));
+const r1=buildEvidenceReport(g1);assert.equal(r1.valid,undefined);assert.equal(r1.synthetic,true);assert.equal(r1.summary.claims[0].status,"INDETERMINATE");assert.ok(r1.limitations.length>=4);
+const h1=renderEvidenceReportHTML(r1);assert.ok(h1.includes("Evidence Graph Report"));assert.ok(h1.includes("INDETERMINATE"));assert.ok(h1.includes("does not establish truth"));
+const r2=buildEvidenceReport(g2);assert.equal(r2.summary.claims[0].status,"DISPUTED");const h2=renderEvidenceReportHTML(r2);assert.ok(h2.includes("DISPUTED"));
+const x=structuredClone(g1);x.nodes[0].label="<script>alert(1)</script>";const hx=renderEvidenceReportHTML(buildEvidenceReport(x));assert.ok(!hx.includes("<script>alert(1)</script>"));assert.ok(hx.includes("&lt;script&gt;"));
+const invalid=structuredClone(g1);invalid.synthetic=false;const ri=buildEvidenceReport(invalid);assert.equal(ri.valid,false);assert.ok(renderEvidenceReportHTML(ri).includes("Graph rejected"));
+console.log("PASS: report summary and limitations");
+console.log("PASS: support-only and disputed statuses preserved");
+console.log("PASS: HTML escaping against markup injection");
+console.log("PASS: invalid graph rejected in report");
