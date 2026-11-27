@@ -12,6 +12,11 @@ const badRef=structuredClone(a);badRef.edges[0].to="MISSING";assert.ok(validateG
 const nonSynthetic=structuredClone(a);nonSynthetic.synthetic=false;assert.ok(validateGraph(nonSynthetic).some(e=>e.includes("synthetic")));
 const self=structuredClone(a);self.edges.push({from:"CLM-001",to:"CLM-001",relation:"supports"});assert.ok(validateGraph(self).some(e=>e.includes("self-loop")));
 const unknown=structuredClone(a);unknown.edges[0].relation="invented";assert.ok(validateGraph(unknown).some(e=>e.includes("unsupported relation")));
+const wrongSupports=structuredClone(a);wrongSupports.edges[0]={from:"CLM-001",to:"EV-001",relation:"supports"};assert.ok(validateGraph(wrongSupports).some(e=>e.includes("supports must connect evidence to claim")));
+const wrongContradicts=structuredClone(a);wrongContradicts.edges[0]={from:"OBS-001",to:"CLM-001",relation:"contradicts"};assert.ok(validateGraph(wrongContradicts).some(e=>e.includes("contradicts must connect evidence to claim")));
+const wrongIntegrity=structuredClone(a);wrongIntegrity.edges[1]={from:"CLM-001",to:"EV-001",relation:"integrity_checked"};assert.ok(validateGraph(wrongIntegrity).some(e=>e.includes("integrity_checked must connect evidence to evidence")));
+const wrongObservedFrom=structuredClone(a);wrongObservedFrom.edges[2]={from:"EV-001",to:"EV-002",relation:"observed_from"};assert.ok(validateGraph(wrongObservedFrom).some(e=>e.includes("observed_from must connect observation to evidence")));
+const validRelationTypes=structuredClone(a);assert.deepEqual(validateGraph(validRelationTypes),[]);
 console.log("PASS: synthetic graph validation");
 console.log("PASS: support-only claim remains INDETERMINATE");
 console.log("PASS: contradiction preserved as DISPUTED");
