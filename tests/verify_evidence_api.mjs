@@ -17,7 +17,7 @@ try{
  r=await fetch(base+"/bad");assert.equal(r.status,404);
  r=await post("/v1/analyze",JSON.stringify({...graph,nodes:[...graph.nodes,{id:graph.nodes[0].id,type:"claim",label:"duplicate"}]}));assert.equal(r.status,422);
  r=await post("/v1/analyze",JSON.stringify({...graph,nodes:[...graph.nodes,{id:"unicode-🛡️",type:"claim",label:"Malayalam: വിശ്വാസം"}]}));assert.equal(r.status,200,"Unicode text should be accepted when structurally valid");
- const malformed={...graph,nodes:[{...graph.nodes[0],label:"bad\\u0000label"},...graph.nodes.slice(1)]};
+ const malformed={...graph,nodes:[{...graph.nodes[0],label:"bad\u0000label"},...graph.nodes.slice(1)]};
  r=await post("/v1/analyze",JSON.stringify(malformed));assert.equal(r.status,422);
  r=await post("/v1/analyze",JSON.stringify({...graph,graph_id:"x".repeat(129)}));assert.equal(r.status,422);
  r=await post("/v1/analyze",JSON.stringify({...graph,nodes:Array(1001).fill({id:"x",type:"claim",label:"x"})}));assert.equal(r.status,422);
