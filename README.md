@@ -9,6 +9,7 @@ AEGIS TRUST is an initiative exploring digital trust infrastructure: provenance,
 - [Local SHA-256 browser experiment](verifier.html) — files are processed locally by this prototype.
 - [Challenge #001 — Evidence reasoning](CHALLENGE_001.md)
 - [Challenge #002 — Integrity vs meaning](CHALLENGE_002.md)
+- [Developer Entry Challenge](DEVELOPER_ENTRY_CHALLENGE.md)
 - [Automated test scope](AUTOMATED_TESTS.md)
 - [Synthetic evidence status vectors](tests/synthetic-evidence-status-vectors.json)
 - [Evidence status vocabulary](EVIDENCE_STATUS_VOCABULARY.md)
