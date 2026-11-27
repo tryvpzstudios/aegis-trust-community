@@ -14,7 +14,7 @@ jobs:
         with:
           node-version: 20
       - name: Install JSON Schema validator
-        run: npm install --no-save ajv@8
+        run: npm install --no-save ajv@8 ajv-formats@3
       - name: Run repository validation
         run: |
           node tests/verify_repo.mjs
