@@ -31,10 +31,10 @@ try {
   const chars="{}[],:\\\"0123456789truefalsenull abcdef\\n\\t";
   for(let i=0;i<150;i++){let s="";for(let j=0,n=rand()%120;j<n;j++)s+=chars[rand()%chars.length];const r=await post(s);assert.ok(r.status<500,`server error on fuzz input ${i}: ${r.status}`);await r.text();}
   // Bounded dense-ish synthetic graph (API limits respected). Record latency without fragile hard threshold.
-  const stress=safeGraph(300,900);
+  const stress=safeGraph(1000,3000);
   const started=performance.now();const r=await post(JSON.stringify(stress));const elapsed=performance.now()-started;
-  assert.equal(r.status,200,"bounded graph should be accepted");const out=await r.json();assert.equal(out.result.node_count,300);assert.equal(out.result.edge_count,900);
+  assert.equal(r.status,200,"bounded graph should be accepted");const out=await r.json();assert.equal(out.result.node_count,1000);assert.equal(out.result.edge_count,3000);
   console.log("PASS: malformed/schema mutation cases");
   console.log("PASS: 150 deterministic fuzz payloads (no 5xx)");
-  console.log(`PASS: bounded graph stress (300 nodes / 900 edges) in ${elapsed.toFixed(1)} ms; latency recorded, not thresholded`);
+  console.log(`PASS: maximum configured graph stress (1000 nodes / 3000 edges) in ${elapsed.toFixed(1)} ms; latency recorded, not thresholded`);
 } finally {await new Promise(resolve=>server.close(resolve));}
