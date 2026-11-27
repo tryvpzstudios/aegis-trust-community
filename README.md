@@ -12,6 +12,9 @@ AEGIS TRUST is an initiative exploring digital trust infrastructure: provenance,
 - [Automated test scope](AUTOMATED_TESTS.md)
 - [Synthetic evidence status vectors](tests/synthetic-evidence-status-vectors.json)
 - [Evidence status vocabulary](EVIDENCE_STATUS_VOCABULARY.md)
+- [Evidence Record Schema v1](schemas/evidence-record-v1.schema.json)
+- [Synthetic evidence record fixture](tests/evidence-record-valid-synthetic.json)
+- [Synthetic evidence graph](tests/synthetic-evidence-graph-001.json)
 
 ## Mission
 Build practical, trustworthy technology that benefits people globally—with evidence before claims, privacy by design, safety, accessibility and accountable review.
