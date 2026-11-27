@@ -22,6 +22,9 @@ AEGIS TRUST is an initiative exploring digital trust infrastructure: provenance,
 - [Evidence Report Generator](src/evidence-report.mjs)
 - [Report generator CLI](scripts/generate-evidence-report.mjs)
 - [Evidence report tests](tests/verify_evidence_report.mjs)
+- [Evidence API prototype](scripts/evidence-api-server.mjs)
+- [API documentation](EVIDENCE_API.md)
+- [API integration tests](tests/verify_evidence_api.mjs)
 
 ## Mission
 Build practical, trustworthy technology that benefits people globally—with evidence before claims, privacy by design, safety, accessibility and accountable review.
