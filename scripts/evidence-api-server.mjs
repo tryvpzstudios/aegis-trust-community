@@ -10,7 +10,7 @@ const MAX_TYPE_LENGTH=64;
 const MAX_LABEL_LENGTH=2000;
 const MAX_GRAPH_ID_LENGTH=128;
 const ALLOWED_RELATIONS=new Set(["supports","contradicts","derived_from","same_subject","context_for","integrity_checked","observed_from","assesses"]);
-const CONTROL_CHARS=/[\\u0000-\\u0008\\u000B\\u000C\\u000E-\\u001F\\u007F]/;
+const CONTROL_CHARS=/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/;
 
 function send(res,status,obj){
  const body=JSON.stringify(obj);
