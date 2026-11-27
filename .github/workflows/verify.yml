@@ -13,7 +13,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+      - name: Install JSON Schema validator
+        run: npm install --no-save ajv@8
       - name: Run repository validation
         run: |
           node tests/verify_repo.mjs
           node tests/verify_evidence_vectors.mjs
+          node tests/verify_evidence_schema_graph.mjs
