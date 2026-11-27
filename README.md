@@ -13,7 +13,7 @@ AEGIS TRUST is an initiative exploring digital trust infrastructure: provenance,
 - [Early Revenue Offers — pilot hypotheses](EARLY_REVENUE_OFFERS.md)
 - [Automated test scope](AUTOMATED_TESTS.md)
 - [Synthetic evidence status vectors](tests/synthetic-evidence-status-vectors.json)
-- [Evidence status vocabulary](EVIDENCE_STATUS_VOCABULARY.md)
+- [Evidence status vocabulary](EVIDENCE_STATUS_VOCABULARY.md)\n- [Evidence graph relation type rules](EVIDENCE_GRAPH_RELATION_TYPE_RULES.md)
 - [Evidence Record Schema v1](schemas/evidence-record-v1.schema.json)
 - [Synthetic evidence record fixture](tests/evidence-record-valid-synthetic.json)
 - [Synthetic evidence graph #001](tests/synthetic-evidence-graph-001.json)
