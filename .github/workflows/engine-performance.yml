@@ -1,0 +1,27 @@
+name: Engine Performance Validation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/evidence-graph-engine.mjs'
+      - 'tests/verify_engine_performance.mjs'
+      - '.github/workflows/engine-performance.yml'
+  pull_request:
+    paths:
+      - 'src/evidence-graph-engine.mjs'
+      - 'tests/verify_engine_performance.mjs'
+      - '.github/workflows/engine-performance.yml'
+
+jobs:
+  engine:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Engine semantic and bounded performance tests
+        run: node tests/verify_engine_performance.mjs
+      - name: Core engine regression
+        run: node tests/verify_engine_module.mjs
