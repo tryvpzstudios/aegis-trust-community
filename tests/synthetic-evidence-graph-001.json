@@ -1,0 +1,22 @@
+{
+ "graph_id":"SYN-GRAPH-001","version":"1.0.0","synthetic":true,
+ "notice":"Entirely synthetic graph; no real-world claim is assessed.",
+ "nodes":[
+  {"id":"CLM-001","type":"claim","label":"A fictional device batch passed a stated inspection"},
+  {"id":"EV-001","type":"evidence","label":"Synthetic inspection summary"},
+  {"id":"EV-002","type":"evidence","label":"Synthetic integrity check"},
+  {"id":"OBS-001","type":"observation","label":"Summary text aligns with claim scope"},
+  {"id":"OBS-002","type":"observation","label":"Digest matches supplied test file"},
+  {"id":"CTX-001","type":"context","label":"Inspection scope limited to one fictional sample"},
+  {"id":"ASSESS-001","type":"assessment","label":"Limited assessment"}
+ ],
+ "edges":[
+  {"from":"EV-001","to":"CLM-001","relation":"supports","strength":"limited","note":"Synthetic summary only"},
+  {"from":"EV-002","to":"EV-001","relation":"integrity_checked","strength":"check_result","note":"Byte-level match only; does not authenticate source"},
+  {"from":"OBS-001","to":"EV-001","relation":"observed_from"},
+  {"from":"OBS-002","to":"EV-002","relation":"observed_from"},
+  {"from":"CTX-001","to":"CLM-001","relation":"context_for"},
+  {"from":"ASSESS-001","to":"CLM-001","relation":"assesses"}
+ ],
+ "expected_interpretation":{"status":"INDETERMINATE","why":["Evidence is synthetic and scope is narrow","Digest match does not establish authenticity or truth","A single sample cannot establish batch-wide claims"],"forbidden_inferences":["The fictional batch is globally certified","Hash match proves the claim","Missing evidence proves fraud"]}
+}
