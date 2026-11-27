@@ -1,0 +1,19 @@
+{
+ "$schema":"https://json-schema.org/draft/2020-12/schema",
+ "$id":"https://aegis-trust.org/schemas/evidence-record-v1.json",
+ "title":"AEGIS TRUST Synthetic Evidence Record v1",
+ "description":"Public synthetic schema; not a production or legally validated evidence system.",
+ "type":"object","additionalProperties":false,
+ "required":["record_id","record_version","created_at","claim","evidence_items","assessment"],
+ "properties":{
+  "record_id":{"type":"string","pattern":"^SYN-[A-Z0-9-]{3,64}$"},
+  "record_version":{"const":"1.0.0"},
+  "created_at":{"type":"string","format":"date-time"},
+  "synthetic":{"type":"boolean","const":true},
+  "claim":{"type":"object","additionalProperties":false,"required":["claim_id","text","scope"],"properties":{"claim_id":{"type":"string","minLength":1},"text":{"type":"string","minLength":1,"maxLength":2000},"scope":{"type":"string","minLength":1,"maxLength":1000},"subject":{"type":"string"},"time_context":{"type":"string"},"location_context":{"type":"string"}}},
+  "evidence_items":{"type":"array","items":{"type":"object","additionalProperties":false,"required":["evidence_id","kind","status","description"],"properties":{"evidence_id":{"type":"string","minLength":1},"kind":{"enum":["source_record","observation","document","media","integrity_check","testimony","other"]},"status":{"enum":["provided","verified","unverified","missing","disputed","rejected","not_checked"]},"description":{"type":"string","minLength":1,"maxLength":3000},"source_reference":{"type":"string"},"observed_at":{"type":"string","format":"date-time"},"collected_at":{"type":"string","format":"date-time"},"hash":{"type":"string","pattern":"^[A-Fa-f0-9]{64}$"},"limitations":{"type":"array","items":{"type":"string"}}}}},
+  "assessment":{"type":"object","additionalProperties":false,"required":["status","criteria","limitations"],"properties":{"status":{"enum":["PASS","FAIL","INDETERMINATE","DISPUTED","NOT_CHECKED"]},"criteria":{"type":"array","items":{"type":"string"}},"limitations":{"type":"array","items":{"type":"string"}},"assessed_by":{"type":"string"},"assessed_at":{"type":"string","format":"date-time"}}},
+  "relations":{"type":"array","items":{"type":"object","additionalProperties":false,"required":["relation","target_id"],"properties":{"relation":{"enum":["supports","contradicts","derived_from","same_subject","context_for"]},"target_id":{"type":"string"}}}},
+  "privacy":{"type":"object","additionalProperties":false,"properties":{"contains_personal_data":{"type":"boolean","const":false},"public_safe":{"type":"boolean","const":true}}}
+ }
+}
