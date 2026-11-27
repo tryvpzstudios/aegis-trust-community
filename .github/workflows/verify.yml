@@ -20,3 +20,4 @@ jobs:
           node tests/verify_repo.mjs
           node tests/verify_evidence_vectors.mjs
           node tests/verify_evidence_schema_graph.mjs
+          node tests/verify_graph_engine.mjs
