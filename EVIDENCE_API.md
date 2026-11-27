@@ -6,7 +6,7 @@ Endpoints:
 - POST `/v1/analyze` — graph structure/status analysis
 - POST `/v1/report` — JSON evidence report
 
-Request: `Content-Type: application/json`, body must include `synthetic:true`.
+Request: `Content-Type: application/json` (optional parameters such as `charset=utf-8` are accepted; media type is checked exactly), body must include `synthetic:true`.
 
 **Request-boundary limits**
 - Body: 1 MiB maximum
@@ -22,4 +22,4 @@ Responses: 400 malformed/missing body, 413 too large, 415 wrong media type, 422 
 
 Security response headers include `no-store`, `nosniff`, `DENY`, restrictive CSP, Referrer-Policy and Permissions-Policy. Error responses avoid exposing exception details.
 
-No auth, TLS, persistence, production deployment, rate limiting, or real evidence support. This prototype binds to 127.0.0.1 and must not be exposed publicly. It does not determine truth/authenticity.
+No auth, TLS, persistence, production deployment, rate limiting, or real evidence support. This prototype binds to 127.0.0.1 and must not be exposed publicly. It does not determine truth/authenticity. The API prototype currently accepts evidence graphs; it does **not** implement full validation against the separate Evidence Record JSON Schema.
