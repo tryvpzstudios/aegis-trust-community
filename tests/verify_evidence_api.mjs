@@ -25,6 +25,8 @@ try{
  r=await post("/v1/analyze",JSON.stringify({...graph,nodes:Array(1001).fill({id:"x",type:"claim",label:"x"})}));assert.equal(r.status,422);
  r=await post("/v1/analyze",JSON.stringify({...graph,edges:Array(3001).fill({from:"a",to:"b",relation:"supports"})}));assert.equal(r.status,422);
  r=await post("/v1/analyze",JSON.stringify({...graph,nodes:[{...graph.nodes[0],label:"x".repeat(2001)},...graph.nodes.slice(1)]}));assert.equal(r.status,422);
+ r=await post("/v1/analyze",JSON.stringify({...graph,edges:[{from:"CLM-001",to:"EV-001",relation:"supports"}]}));assert.equal(r.status,422,"semantic edge type mismatch must be rejected");
+ assert.ok((await r.json()).details.some(e=>e.includes("supports must connect evidence to claim")));
  r=await post("/v1/analyze",JSON.stringify({...graph,edges:[{...graph.edges[0],relation:"made-up"}]}));assert.equal(r.status,422);
  r=await post("/v1/analyze", " ".repeat(1024*1024+100));assert.equal(r.status,413);assert.equal((await r.json()).message,"Request body too large");
  console.log("PASS: health, analyze, report endpoints and conservative statuses");
