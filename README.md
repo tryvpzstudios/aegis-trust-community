@@ -17,6 +17,8 @@ AEGIS TRUST is an initiative exploring digital trust infrastructure: provenance,
 - [Synthetic evidence graph #001](tests/synthetic-evidence-graph-001.json)
 - [Synthetic contradiction graph #002](tests/synthetic-evidence-graph-002-conflict.json)
 - [Graph analyzer tests](tests/verify_graph_engine.mjs)
+- [Evidence Graph Engine v0.1](src/evidence-graph-engine.mjs)
+- [Engine module tests](tests/verify_engine_module.mjs)
 
 ## Mission
 Build practical, trustworthy technology that benefits people globally—with evidence before claims, privacy by design, safety, accessibility and accountable review.
