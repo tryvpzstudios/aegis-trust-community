@@ -1,0 +1,13 @@
+{
+  "suite": "AEGIS-SYNTHETIC-EVIDENCE-STATUS-001",
+  "version": "1.0.0",
+  "notice": "Synthetic reasoning vectors. These are policy examples, not a production verifier.",
+  "cases": [
+    {"id":"V001","input":{"required_evidence":["source","collection_time"],"present_evidence":["source","collection_time"],"observations":["source_record_consistent"],"contradictions":[]},"expected":"PASS","reason":"All declared requirements are present and no contradiction is recorded; this does not prove claim truth."},
+    {"id":"V002","input":{"required_evidence":["source","collection_time"],"present_evidence":["source"],"observations":[],"contradictions":[]},"expected":"INDETERMINATE","reason":"A required item is missing; absence is not evidence of falsity."},
+    {"id":"V003","input":{"required_evidence":["source"],"present_evidence":["source"],"observations":["claim_supported"],"contradictions":["independent_source_disagrees"]},"expected":"DISPUTED","reason":"Conflicting observations must be represented, not silently resolved."},
+    {"id":"V004","input":{"required_evidence":["source"],"present_evidence":["source"],"observations":["claim_not_supported"],"contradictions":[]},"expected":"FAIL","reason":"The specified assessment criterion is not met; this is not a universal declaration that the claim is false."},
+    {"id":"V005","input":{"required_evidence":[],"present_evidence":[],"observations":[],"contradictions":[],"checks_requested":[]},"expected":"NOT_CHECKED","reason":"No checks were requested or performed."},
+    {"id":"V006","input":{"required_evidence":["source"],"present_evidence":["source"],"observations":["integrity_match"],"contradictions":[]},"expected":"PASS","reason":"Integrity match supports byte-level consistency only; authenticity, context, meaning and truth remain unproven."}
+  ]
+}
