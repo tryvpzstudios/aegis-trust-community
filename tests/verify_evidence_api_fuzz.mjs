@@ -7,6 +7,10 @@ const base="http://127.0.0.1:"+server.address().port;
 const post=(payload,headers={"content-type":"application/json"})=>fetch(base+"/v1/analyze",{method:"POST",headers,body:payload});
 const safeGraph=(nodes=2,edges=1)=>({synthetic:true,graph_id:"fuzz",nodes:Array.from({length:nodes},(_,i)=>({id:"n"+i,type:i===0?"claim":"evidence",label:"Node "+i})),edges:edges?Array.from({length:edges},(_,i)=>({from:"n"+(i%nodes),to:"n"+((i+1)%nodes),relation:"supports"})):[]});
 try {
+  // Strict media-type boundary cases.
+  let media=await post("{}",{"content-type":"application/jsonp"});assert.equal(media.status,415);
+  media=await post("{}",{"content-type":"application/json-evil"});assert.equal(media.status,415);
+  media=await post(JSON.stringify(safeGraph()),{"content-type":"application/json; charset=utf-8"});assert.equal(media.status,200);
   // Deterministic boundary fuzz: malformed JSON, scalar/object/array payloads, and schema mutations.
   const malformed=["", "{", "null", "[]", "true", "42", "\"x\"", "{\"synthetic\":true"];
   for(const body of malformed){const r=await post(body);assert.ok([400,422].includes(r.status),`unexpected status for ${JSON.stringify(body)}: ${r.status}`);await r.text();}
