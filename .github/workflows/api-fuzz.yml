@@ -1,0 +1,27 @@
+name: API Fuzz & Stress
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/evidence-api-server.mjs'
+      - 'src/evidence-graph-engine.mjs'
+      - 'tests/verify_evidence_api_fuzz.mjs'
+      - '.github/workflows/api-fuzz.yml'
+  pull_request:
+    paths:
+      - 'scripts/evidence-api-server.mjs'
+      - 'src/evidence-graph-engine.mjs'
+      - 'tests/verify_evidence_api_fuzz.mjs'
+      - '.github/workflows/api-fuzz.yml'
+
+jobs:
+  fuzz:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Deterministic API fuzz and bounded stress
+        run: node tests/verify_evidence_api_fuzz.mjs
