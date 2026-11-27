@@ -33,8 +33,9 @@ E. CI, automated testing, security audit
 - [x] Repository baseline inspected
 - [x] Scope and safety boundaries documented
 - [x] Local SHA-256 browser prototype created (verifier.html)
-- [ ] Verify prototype via browser/manual test
-- [ ] Add synthetic test vectors
+- [x] Added browser known-answer self-test (empty input + ASCII abc)
+- [x] Added manual verifier test protocol
+- [ ] Execute browser/manual tests on deployed HTTPS page
 - [ ] Establish automated validation/CI
 
 ## Status vocabulary
