@@ -60,7 +60,8 @@ function validateBoundary(g){
 export function createEvidenceApiServer(){return createServer(async(req,res)=>{
  if(req.method==="GET"&&req.url==="/health")return send(res,200,{ok:true,service:"AEGIS TRUST Evidence API prototype",version:"0.1.0",mode:"synthetic-only"});
  if(req.method!=="POST"||!["/v1/analyze","/v1/report"].includes(req.url))return send(res,404,{error:"NOT_FOUND",message:"Route not found"});
- if(!req.headers["content-type"]?.toLowerCase().startsWith("application/json"))return send(res,415,{error:"UNSUPPORTED_MEDIA_TYPE",message:"Content-Type must be application/json"});
+ const mediaType=req.headers["content-type"]?.split(";")[0].trim().toLowerCase();
+ if(mediaType!=="application/json")return send(res,415,{error:"UNSUPPORTED_MEDIA_TYPE",message:"Content-Type must be application/json"});
  try{
   const g=await body(req);
   const boundaryErrors=validateBoundary(g);
