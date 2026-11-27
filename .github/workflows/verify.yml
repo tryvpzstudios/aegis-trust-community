@@ -14,4 +14,6 @@ jobs:
         with:
           node-version: 20
       - name: Run repository validation
-        run: node tests/verify_repo.mjs
+        run: |
+          node tests/verify_repo.mjs
+          node tests/verify_evidence_vectors.mjs
