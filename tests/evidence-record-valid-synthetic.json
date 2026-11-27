@@ -1,0 +1,11 @@
+{
+ "record_id":"SYN-EVIDENCE-001","record_version":"1.0.0","created_at":"2026-11-27T00:00:00Z","synthetic":true,
+ "claim":{"claim_id":"CLM-001","text":"A fictional device batch passed a stated inspection.","scope":"Only one fictional sample; no wider batch inference.","subject":"Fictional device batch X","time_context":"Synthetic scenario","location_context":"Not applicable"},
+ "evidence_items":[
+  {"evidence_id":"EV-001","kind":"document","status":"provided","description":"Synthetic inspection summary.","source_reference":"synthetic://inspection-summary"},
+  {"evidence_id":"EV-002","kind":"integrity_check","status":"verified","description":"Digest matches the synthetic test file.","source_reference":"synthetic://file","hash":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","limitations":["Digest match does not prove source authenticity, meaning or truth."]}
+ ],
+ "assessment":{"status":"INDETERMINATE","criteria":["Scope limited to a single fictional sample"],"limitations":["Entire record is synthetic","No independent source authentication","No batch-wide conclusion"]},
+ "relations":[{"relation":"supports","target_id":"CLM-001"}],
+ "privacy":{"contains_personal_data":false,"public_safe":true}
+}
