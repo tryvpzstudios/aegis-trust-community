@@ -19,6 +19,7 @@ export function validateGraph(graph) {
   if(!Array.isArray(graph.edges)) errors.push("edges must be an array");
   if(errors.length) return errors;
   const ids=new Set();
+  const nodeTypes=new Map();
   for(const [i,n] of graph.nodes.entries()){
     if(!n||typeof n!=="object"||Array.isArray(n)||!n.id||!n.type||!n.label) errors.push(`node[${i}] requires id, type, label`);
     else if(ids.has(n.id)) errors.push(`duplicate node id: ${n.id}`);
