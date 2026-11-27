@@ -33,6 +33,6 @@ Open an issue titled **[TASK CLAIM] Task name**. Include your GitHub profile, re
 ## Not available for public tasks
 Private core architecture/code, secrets, signing keys, private evidence/customer data, sensitive algorithms, patent-sensitive inventions, vulnerabilities, production access, deployment credentials and legal/financial decisions.
 
-
 ## Maintainer validation additions
-- API deterministic fuzz/stress harness: `node tests/verify_evidence_api_fuzz.mjs` (150 seeded malformed payloads plus schema mutations and a bounded 300-node/900-edge graph). This test is a local harness; CI integration is pending.
+- API deterministic fuzz/stress harness: `node tests/verify_evidence_api_fuzz.mjs` — 150 seeded malformed payloads/schema mutations plus bounded 300-node/900-edge graph. **Integrated into CI; verified passing.**
+- Engine optimization regression/performance harness: `node tests/verify_engine_performance.mjs` — semantic equivalence and bounded 1,000-node graph. **Integrated into CI; verified passing.**
