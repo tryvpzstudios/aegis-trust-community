@@ -15,7 +15,7 @@ function analyze(graph) {
   for (const e of graph.edges) {
     assert.ok(nodeMap.has(e.from), "unknown edge source: "+e.from);
     assert.ok(nodeMap.has(e.to), "unknown edge target: "+e.to);
-    adjacency.get(e.from).push(e.to);
+    adjacency.get(e.from).push(e.to); adjacency.get(e.to).push(e.from);
     if(e.relation==="supports") supporting.add(e.to);
     if(e.relation==="contradicts") contradicting.add(e.to);
   }
