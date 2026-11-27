@@ -23,3 +23,4 @@ jobs:
           node tests/verify_graph_engine.mjs
           node tests/verify_engine_module.mjs
           node tests/verify_evidence_report.mjs
+          node tests/verify_evidence_api.mjs
