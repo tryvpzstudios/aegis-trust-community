@@ -1,50 +1,63 @@
 /**
- * AEGIS TRUST Evidence Graph Engine v0.1 (synthetic/public prototype)
+ * AEGIS TRUST Evidence Graph Engine v0.2 (synthetic/public prototype)
  * Conservative graph validation and relationship summaries.
  * NOT a truth, authenticity, legal, safety, or confidence engine.
  */
+const ALLOWED_RELATIONS=new Set(["supports","contradicts","derived_from","same_subject","context_for","integrity_checked","observed_from","assesses"]);
+
 export function validateGraph(graph) {
   const errors=[];
-  if(!graph||typeof graph!=="object") return ["Graph must be an object"];
+  if(!graph||typeof graph!=="object"||Array.isArray(graph)) return ["Graph must be an object"];
   if(graph.synthetic!==true) errors.push("Only explicitly synthetic graphs accepted by this public prototype");
   if(!Array.isArray(graph.nodes)) errors.push("nodes must be an array");
   if(!Array.isArray(graph.edges)) errors.push("edges must be an array");
   if(errors.length) return errors;
   const ids=new Set();
   for(const [i,n] of graph.nodes.entries()){
-    if(!n||typeof n!=="object"||!n.id||!n.type||!n.label) errors.push(`node[${i}] requires id, type, label`);
+    if(!n||typeof n!=="object"||Array.isArray(n)||!n.id||!n.type||!n.label) errors.push(`node[${i}] requires id, type, label`);
     else if(ids.has(n.id)) errors.push(`duplicate node id: ${n.id}`);
     else ids.add(n.id);
   }
-  const allowed=new Set(["supports","contradicts","derived_from","same_subject","context_for","integrity_checked","observed_from","assesses"]);
   for(const [i,e] of graph.edges.entries()){
-    if(!e||!ids.has(e.from)||!ids.has(e.to)) errors.push(`edge[${i}] has unknown endpoint`);
-    if(e.from===e.to) errors.push(`edge[${i}] self-loop is not allowed`);
-    if(!allowed.has(e.relation)) errors.push(`edge[${i}] unsupported relation`);
+    if(!e||typeof e!=="object"||Array.isArray(e)||!ids.has(e.from)||!ids.has(e.to)) errors.push(`edge[${i}] has unknown endpoint`);
+    if(e?.from===e?.to) errors.push(`edge[${i}] self-loop is not allowed`);
+    if(!ALLOWED_RELATIONS.has(e?.relation)) errors.push(`edge[${i}] unsupported relation`);
   }
   return errors;
 }
 export function analyzeGraph(graph) {
   const errors=validateGraph(graph);
   if(errors.length) return {valid:false,errors};
-  const claims=graph.nodes.filter(n=>n.type==="claim").map(c=>{
-    const inbound=graph.edges.filter(e=>e.to===c.id);
-    const support=inbound.filter(e=>e.relation==="supports");
-    const contra=inbound.filter(e=>e.relation==="contradicts");
-    let status="NOT_CHECKED";
-    if(support.length&&contra.length) status="DISPUTED";
-    else if(contra.length) status="DISPUTED";
-    else if(support.length) status="INDETERMINATE";
-    return {claim_id:c.id,status,supporting_relationships:support.length,contradicting_relationships:contra.length};
-  });
+  const claims=graph.nodes.filter(n=>n.type==="claim");
+  const counts=new Map(claims.map(c=>[c.id,{support:0,contra:0}]));
   const adj=new Map(graph.nodes.map(n=>[n.id,[]]));
-  for(const e of graph.edges){adj.get(e.from).push({node:e.to,relation:e.relation});adj.get(e.to).push({node:e.from,relation:e.relation});}
-  const paths={};
-  for(const n of graph.nodes.filter(n=>n.type==="claim")){
-    const seen=new Set([n.id]),queue=[n.id];
-    while(queue.length){const cur=queue.shift();for(const x of adj.get(cur)){if(!seen.has(x.node)){seen.add(x.node);queue.push(x.node);}}}
-    paths[n.id]=[...seen];
+  // Single pass over edges builds relationship counts and adjacency.
+  for(const e of graph.edges){
+    adj.get(e.from).push(e.to);
+    adj.get(e.to).push(e.from);
+    const c=counts.get(e.to);
+    if(c){if(e.relation==="supports")c.support++;else if(e.relation==="contradicts")c.contra++;}
   }
-  return {valid:true,graph_id:graph.graph_id??null,node_count:graph.nodes.length,edge_count:graph.edges.length,claims,connected_nodes_from_claim:paths,
+  const claimResults=claims.map(c=>{
+    const {support,contra}=counts.get(c.id);
+    let status="NOT_CHECKED";
+    if(support&&contra)status="DISPUTED";
+    else if(contra)status="DISPUTED";
+    else if(support)status="INDETERMINATE";
+    return {claim_id:c.id,status,supporting_relationships:support,contradicting_relationships:contra};
+  });
+  const paths={};
+  for(const claim of claims){
+    const seen=new Set([claim.id]),queue=[claim.id];
+    // Head index avoids repeated Array.shift() reindexing on large traversals.
+    for(let head=0;head<queue.length;head++){
+      const cur=queue[head];
+      for(const next of adj.get(cur)){
+        if(!seen.has(next)){seen.add(next);queue.push(next);}
+      }
+    }
+    paths[claim.id]=[...seen];
+  }
+  return {valid:true,graph_id:graph.graph_id??null,node_count:graph.nodes.length,edge_count:graph.edges.length,claims:claimResults,connected_nodes_from_claim:paths,
     limitations:["Synthetic-only public prototype","Relationship labels are assertions in the graph, not proof","No source authenticity or truth determination","No numeric confidence or credibility score","Connected-path traversal is topology-only"]};
 }
