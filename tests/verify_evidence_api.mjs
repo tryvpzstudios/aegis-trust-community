@@ -12,6 +12,8 @@ try{
  r=await post("/v1/analyze",JSON.stringify(conflict));assert.equal(r.status,200);assert.equal((await r.json()).result.claims[0].status,"DISPUTED");
  r=await post("/v1/report",JSON.stringify(graph));assert.equal(r.status,200);assert.equal((await r.json()).result.summary.claims[0].status,"INDETERMINATE");
  r=await post("/v1/analyze","{}",{"content-type":"text/plain"});assert.equal(r.status,415);
+ r=await post("/v1/analyze","{}",{"content-type":"application/jsonp"});assert.equal(r.status,415,"application/jsonp must not be accepted");
+ r=await post("/v1/analyze",JSON.stringify(graph),{"content-type":"application/json; charset=utf-8"});assert.equal(r.status,200,"JSON with charset should be accepted");
  r=await post("/v1/analyze","{");assert.equal(r.status,400);
  r=await post("/v1/analyze",JSON.stringify({...graph,synthetic:false}));assert.equal(r.status,422);
  r=await fetch(base+"/bad");assert.equal(r.status,404);
