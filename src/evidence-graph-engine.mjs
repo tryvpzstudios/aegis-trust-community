@@ -28,7 +28,8 @@ export function validateGraph(graph) {
   for(const [i,e] of graph.edges.entries()){
     if(!e||typeof e!=="object"||Array.isArray(e)||!ids.has(e.from)||!ids.has(e.to)) errors.push(`edge[${i}] has unknown endpoint`);
     if(e?.from===e?.to) errors.push(`edge[${i}] self-loop is not allowed`);
-    if(!ALLOWED_RELATIONS.has(e?.relation)) errors.push(`edge[${i}] unsupported relation`);\n    const expected=RELATION_TYPE_RULES[e?.relation];\n    if(expected&&ids.has(e?.from)&&ids.has(e?.to)&&(nodeTypes.get(e.from)!==expected[0]||nodeTypes.get(e.to)!==expected[1])) errors.push(`edge[${i}] ${e.relation} must connect ${expected[0]} to ${expected[1]}`);
+    if(!ALLOWED_RELATIONS.has(e?.relation)) errors.push(`edge[${i}] unsupported relation`);
+    const expected=RELATION_TYPE_RULES[e?.relation];\n    if(expected&&ids.has(e?.from)&&ids.has(e?.to)&&(nodeTypes.get(e.from)!==expected[0]||nodeTypes.get(e.to)!==expected[1])) errors.push(`edge[${i}] ${e.relation} must connect ${expected[0]} to ${expected[1]}`);
   }
   return errors;
 }
