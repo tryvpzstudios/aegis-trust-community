@@ -4,6 +4,13 @@
 
 AEGIS TRUST is an initiative exploring digital trust infrastructure: provenance, evidence integrity, identity protection, product verification, media integrity and responsible AI.
 
+## Explore the public experiments
+- **[Open the experiment landing page](index.html)** — demo and challenges in one place.
+- [Local SHA-256 browser experiment](verifier.html) — files are processed locally by this prototype.
+- [Challenge #001 — Evidence reasoning](CHALLENGE_001.md)
+- [Challenge #002 — Integrity vs meaning](CHALLENGE_002.md)
+- [Automated test scope](AUTOMATED_TESTS.md)
+
 ## Mission
 Build practical, trustworthy technology that benefits people globally—with evidence before claims, privacy by design, safety, accessibility and accountable review.
 
@@ -17,11 +24,12 @@ Build practical, trustworthy technology that benefits people globally—with evi
 - Documentation, testing and synthetic datasets
 
 ## Start here
-1. Read [CONTRIBUTING.md](CONTRIBUTING.md).
-2. Review the [public task board](TASKS.md).
-3. Read [SECURITY.md](SECURITY.md) before reporting a vulnerability.
-4. Discuss an issue before beginning substantial work.
-5. Submit work through a pull request; all contributions are reviewed.
+1. Explore the experiments above.
+2. Read [CONTRIBUTING.md](CONTRIBUTING.md).
+3. Review the [public task board](TASKS.md).
+4. Read [SECURITY.md](SECURITY.md) before reporting a vulnerability.
+5. Discuss an issue before beginning substantial work.
+6. Submit work through a pull request; all contributions are reviewed.
 
 ## Contributor principles
 - Clear scope and honest status; no fabricated results.
