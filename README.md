@@ -10,6 +10,7 @@ AEGIS TRUST is an initiative exploring digital trust infrastructure: provenance,
 - [Challenge #001 — Evidence reasoning](CHALLENGE_001.md)
 - [Challenge #002 — Integrity vs meaning](CHALLENGE_002.md)
 - [Developer Entry Challenge](DEVELOPER_ENTRY_CHALLENGE.md)
+- [Early Revenue Offers — pilot hypotheses](EARLY_REVENUE_OFFERS.md)
 - [Automated test scope](AUTOMATED_TESTS.md)
 - [Synthetic evidence status vectors](tests/synthetic-evidence-status-vectors.json)
 - [Evidence status vocabulary](EVIDENCE_STATUS_VOCABULARY.md)
