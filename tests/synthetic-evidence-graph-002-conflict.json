@@ -1,0 +1,20 @@
+{
+ "graph_id":"SYN-GRAPH-002","version":"1.0.0","synthetic":true,
+ "notice":"Synthetic contradiction test. No real claim or source.",
+ "nodes":[
+  {"id":"CLM-002","type":"claim","label":"Fictional equipment is within stated temperature range"},
+  {"id":"EV-010","type":"evidence","label":"Synthetic observation A"},
+  {"id":"EV-011","type":"evidence","label":"Synthetic observation B"},
+  {"id":"OBS-010","type":"observation","label":"Observation A indicates within range"},
+  {"id":"OBS-011","type":"observation","label":"Observation B indicates outside range"},
+  {"id":"ASSESS-002","type":"assessment","label":"Conflict-preserving assessment"}
+ ],
+ "edges":[
+  {"from":"EV-010","to":"CLM-002","relation":"supports","strength":"limited"},
+  {"from":"EV-011","to":"CLM-002","relation":"contradicts","strength":"limited"},
+  {"from":"OBS-010","to":"EV-010","relation":"observed_from"},
+  {"from":"OBS-011","to":"EV-011","relation":"observed_from"},
+  {"from":"ASSESS-002","to":"CLM-002","relation":"assesses"}
+ ],
+ "expected_interpretation":{"status":"DISPUTED","why":["Support and contradiction coexist"],"forbidden_inferences":["Silently discard one observation","Treat conflict as proof of fraud"]}
+}
