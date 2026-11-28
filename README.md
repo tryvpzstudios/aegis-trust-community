@@ -66,3 +66,7 @@ Community hub initialized. Tasks are proposals until explicitly marked **OPEN**.
 Start with a GitHub Issue using a clear title and concise proposal. Please communicate in writing through GitHub.
 
 *Evidence before claims. Trust through verification.*
+
+## Public scope and IP protection
+
+This public community repository intentionally exposes only approved, non-sensitive collaboration material. **Core inventions, confidential architecture, proprietary algorithms, security-sensitive details, private roadmap, customer data, secrets and patent-sensitive mechanisms must not be published.** See [PUBLIC_SCOPE_IP_PROTECTION.md](PUBLIC_SCOPE_IP_PROTECTION.md). Public tasks are limited to safe, approved work; contributors must not attempt to infer or request private internals. Maintainers review public disclosures before publication.
